@@ -35,19 +35,33 @@ export class Login extends Component<LoginProps,LoginState> {
 
   private async handleSubmit(event: SyntheticEvent){
     event.preventDefault()
+    this.setState({loginAttempted: true})
     const result = await this.props.authService.login(
       this.state.userName,
       this.state.password
     )
 
     if(result) {
-      console.log(result)
+      this.setState(
+        ({loginSuccessful: true})
+      )
     } else {
-      console.log('wrong login')
+      this.setState(({loginSuccessful: false}))
     }
   } 
 
   render() {
+
+    // declare a new label
+    let loginMessage: any;
+    if(this.state.loginAttempted) {
+      if(this.state.loginSuccessful){
+        loginMessage = <label htmlFor="">Login Successful</label>
+      } else {
+        loginMessage = <label htmlFor="">Login Failed</label>
+      }
+    }
+
     return (
       <div>
         <h2>Please login</h2>
@@ -56,6 +70,7 @@ export class Login extends Component<LoginProps,LoginState> {
           <input value={this.state.password} type='password' onChange={e => this.setPassword(e)}/><br />
           <input type="submit" value='Login' />
         </form>
+        {loginMessage}
       </div>
     )
   }

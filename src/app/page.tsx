@@ -3,18 +3,23 @@
 import React, { Component } from 'react'
 import { User } from '../model/Model'
 import { AuthService } from '@/services/AuthService'
-import { Login }  from '../components/Login'
+import { Login }  from './components/Login'
+import { Navbar } from './navbar/Navbar'
+import { Home } from './home/page'
 
 interface HomeState{
   user: User | undefined
 }
 
-export default class Home extends Component < {}, HomeState> {
+export default class App extends Component < {}, HomeState> {
 
   private authService: AuthService = new AuthService()
 
   constructor(props: any){
     super(props)
+    this.state ={
+      user: undefined
+    }
 
     this.setUser = this.setUser.bind(this)
   }
@@ -29,8 +34,10 @@ export default class Home extends Component < {}, HomeState> {
   render() {
     return (
       
-      <div>App From class Works!
-        <Login authService={this.authService} setUser={this.setUser}/>
+      <div>
+        {/* <Navbar user={this.state.user}/> */}
+        {/* <Login authService={this.authService} setUser={this.setUser}/> */}
+        <Home />
       </div>
     )
   }

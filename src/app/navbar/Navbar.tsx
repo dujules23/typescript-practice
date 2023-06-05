@@ -1,3 +1,5 @@
+'use client'
+
 import React, { Component } from 'react'
 import { User } from '@/model/Model'
 import Link from 'next/link'
